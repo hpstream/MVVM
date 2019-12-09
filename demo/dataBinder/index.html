@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <h1>数据双向绑定演示</h1>
+  <input id="input" type="text">
+  <div id="div"></div>
+  <script src="./hikack.js"></script>
+  <script>
+    let input = document.getElementById('input')
+    let div = document.getElementById('div')
+    let data = { input: '' }
+
+    hijack(data, input)
+
+    // model -> view
+    data.input = '11111112221'
+
+    // view -> model
+    input.oninput = function(e) {
+      data.input = e.target.value
+      // model -> view
+    }
+  </script>
+</body>
+</html>
+
