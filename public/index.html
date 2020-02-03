@@ -7,11 +7,54 @@
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>mvvm</title>
   </head>
+  <style>
+    .item-header{
+      color: pink;
+    }
+  </style>
   <body>
-    <noscript>
-      <strong>We're sorry but mvvm doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
+    <div id="app">
+    </div>
     <!-- built files will be auto injected -->
   </body>
+  <script src="./../lib/vdom.js"></script>
+  <script>
+
+     let vdom = createElement('div',{id:'text'},[
+     createElement('p',{key:'a',style:{color:'blue',fontSize:'30px'}},'节点1'),
+    //  createElement('p',{key:'b','@click':()=>{alert(1)}},'节点2'),
+     createElement('p',{key:'c',class:'item-header'},'节点3'),
+    //  createElement('p',{key:'d',sbc:'ss'},'节点4')
+     ])
+     console.log('------------------------------------');
+     console.log(JSON.stringify(vdom,null,2));
+     console.log('------------------------------------');
+     render(vdom,document.getElementById('app'))
+    // let div = createElement('div',{id:'text'},[
+    //   createElement('p',{},'节点1')
+    // ])
+    // console.log('------------------------------------');
+    // console.log(div);
+    // console.log('------------------------------------');
+
+    //  function createElement(){
+    //    return {
+    //      tag:'div',
+    //      data:{id:'app'},
+    //      children:[
+    //        {
+    //          tag:'p',
+    //          data:{class:'item'},
+    //          children:['节点一']
+    //        }
+    //      ]
+    //    }
+    //  }
+    //  let div = document.createElement('div');
+    //  let rst = [];
+    //  for(let key in div){
+    //    rst.push(key);
+    //  }
+    //  console.log(rst);
+  </script>
 </html>
