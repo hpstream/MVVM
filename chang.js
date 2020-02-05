@@ -26,7 +26,7 @@ class Change {
       }
 
       if (hasAmount >= 0) {
-        if (newMin.length < min.length) {
+        if (newMin.length < min.length - 1) {
           min = [this.changeType[i]].concat(newMin);
         }
         if (min.length === 0) {
