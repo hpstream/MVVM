@@ -7,14 +7,16 @@ class Change {
     this.changeType = changeType;
     this.cache = {};
     this.typeCount = {};
+    this.fn = {};
   }
+  // 找的  amount 块钱的最优解，并发他放在 cache 缓存住
   mkChange(amount) {
     let min = []; // 最后方案
     if (!amount) {
       return [];
     }
     if (this.cache[amount]) {
-      return this.cache[amount];
+      return JSON.parse(this.cache[amount]);
     }
     for (let i = 0; i < this.changeType.length; i++) {
       // 先找一张试试
@@ -30,20 +32,36 @@ class Change {
           min = [this.changeType[i]].concat(newMin);
         }
         if (min.length === 0) {
+          // [n,[]]
           // 如果最优解不存在,那么他本上就是最优解
           min = [this.changeType[i]].concat(newMin);
         }
         min = [this.changeType[i]].concat(newMin);
       }
     }
-    return (this.cache[amount] = min);
+    // if (amount > 100 && amount % 100 === 0) {
+    //   return min;
+    // }
+    this.cache[amount] = JSON.stringify(min);
+    return min;
+  }
+  mkChangefn(amount, limit = 100) {
+    let calc = 0;
+    while (amount > calc) {
+      calc += limit;
+      this.mkChange(calc);
+    }
+    return this.mkChange(amount).join(",");
   }
 }
 
 const change = new Change([1, 5, 10, 20, 50, 100]);
 
 // console.log(change.mkChange(2));
-console.log(change.mkChange(10));
+console.time("ss");
+console.log(change.mkChangefn(206002, 1000));
+console.timeEnd("ss");
+// console.log(change.mkChange(1000));
 // console.log(change.mkChange(2));
 // console.log(change.mkChange(35));
 // console.log(change.mkChange(383));
